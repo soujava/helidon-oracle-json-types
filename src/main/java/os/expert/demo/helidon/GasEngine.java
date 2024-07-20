@@ -6,6 +6,12 @@ import jakarta.json.bind.annotation.JsonbVisibility;
 @JsonbVisibility(FieldAccessStrategy.class)
 public class GasEngine extends Engine {
 
+    public GasEngine() {
+    }
+
+    public GasEngine(int horsepower) {
+        super(horsepower);
+    }
 
     @Override
     public String getFuelType() {

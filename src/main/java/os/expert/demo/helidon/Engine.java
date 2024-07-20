@@ -16,7 +16,18 @@ import java.util.Objects;
 @JsonbVisibility(FieldAccessStrategy.class)
 public abstract class Engine {
 
+    public Engine() {
+    }
+
+    public Engine(int horsepower) {
+        this.horsepower = horsepower;
+    }
+
     protected int horsepower;
+
+    public int getHorsepower() {
+        return horsepower;
+    }
 
     public abstract String getFuelType();
 

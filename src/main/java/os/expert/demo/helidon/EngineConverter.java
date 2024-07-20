@@ -4,11 +4,8 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.nosql.AttributeConverter;
 
-import java.util.logging.Logger;
 
 public class EngineConverter implements AttributeConverter<Engine, String> {
-
-    private static final Logger LOGGER = Logger.getLogger(EngineConverter.class.getName());
 
     private static final Jsonb JSONB = JsonbBuilder.create();
 
@@ -17,7 +14,6 @@ public class EngineConverter implements AttributeConverter<Engine, String> {
         if (attribute == null) {
             return null;
         }
-        LOGGER.info("Converting Engine to JSON: " + attribute);
         return JSONB.toJson(attribute);
     }
 
