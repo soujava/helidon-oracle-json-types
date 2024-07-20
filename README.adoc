@@ -153,5 +153,10 @@ After you’re done, cleanup.
 kubectl delete -f app.yaml
 ----
 
-== Building a Custom Runtime Image
+== Running Oracle NoSQL
 
+
+[source,bash]
+----
+docker run -d --name oracle-instance -p 8080:8080 ghcr.io/oracle/nosql:latest-ce
+----
