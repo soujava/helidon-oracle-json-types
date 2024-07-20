@@ -11,7 +11,12 @@ import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.jnosql.mapping.Database;
+import org.eclipse.jnosql.mapping.DatabaseType;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -27,7 +32,7 @@ public class MachineResource {
     private final MachineRepository repository;
 
     @Inject
-    public MachineResource(MachineRepository repository) {
+    public MachineResource(@Database(DatabaseType.DOCUMENT) MachineRepository repository) {
         this.repository = repository;
     }
 
@@ -36,6 +41,14 @@ public class MachineResource {
         LOGGER.info("Get machines from page " + page + " with page size " + pageSize);
         Page<Machine> machines = this.repository.findAll(PageRequest.ofPage(page).size(pageSize), ORDER_MANUFACTURER);
         return machines.content();
+    }
+
+    @GET
+    @Path("{id}")
+    public Machine get(@PathParam("id") String id) {
+        LOGGER.info("Get machine by id " + id);
+        return this.repository.findById(id)
+                .orElseThrow(() -> new WebApplicationException("Machine not found with id: " + id, Response.Status.NOT_FOUND));
     }
 
     @PUT
