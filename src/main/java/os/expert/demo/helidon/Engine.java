@@ -48,4 +48,11 @@ public abstract class Engine {
     public int hashCode() {
         return Objects.hash(horsepower, getFuelType());
     }
+
+    @Override
+    public String toString() {
+        return "Engine{" +
+                "horsepower=" + horsepower +
+                '}';
+    }
 }

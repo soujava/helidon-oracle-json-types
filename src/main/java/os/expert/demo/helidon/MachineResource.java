@@ -37,10 +37,16 @@ public class MachineResource {
     }
 
     @GET
-    public List<Machine> get(@QueryParam("page") @DefaultValue("1") int page,@QueryParam("page_size") @DefaultValue("10") int pageSize) {
+    public List<Machine> getMachines(@QueryParam("page") @DefaultValue("1") int page,@QueryParam("page_size") @DefaultValue("10") int pageSize) {
         LOGGER.info("Get machines from page " + page + " with page size " + pageSize);
         Page<Machine> machines = this.repository.findAll(PageRequest.ofPage(page).size(pageSize), ORDER_MANUFACTURER);
         return machines.content();
+    }
+
+    @GET
+    @Path("gas")
+    public List<Machine> getGasMachines() {
+        return this.repository.findByType("gas");
     }
 
     @GET
@@ -50,6 +56,7 @@ public class MachineResource {
         return this.repository.findById(id)
                 .orElseThrow(() -> new WebApplicationException("Machine not found with id: " + id, Response.Status.NOT_FOUND));
     }
+
 
     @PUT
     public void save(Machine machine) {
