@@ -50,6 +50,12 @@ public class MachineResource {
     }
 
     @GET
+    @Path("electric")
+    public List<Machine> getElectricMachines() {
+        return this.repository.findByType("electric");
+    }
+
+    @GET
     @Path("{id}")
     public Machine get(@PathParam("id") String id) {
         LOGGER.info("Get machine by id " + id);
